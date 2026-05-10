@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mamá 🌹</title>
+    <style>
+        :root { --primary: #ff4d6d; --bg: #fff0f3; }
+        body { background-color: var(--bg); font-family: 'Georgia', serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        /* Contenedor de pétalos */
+        #petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .petal { position: absolute; background-color: #ffb4c2; border-radius: 150% 0 150% 0; opacity: 0.7; animation: fall linear infinite; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; z-index: 10; max-width: 85%; transition: all 0.8s ease; border: 2px solid #ffccd5; }
+        h1 { color: var(--primary); margin-bottom: 10px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); }
+        .hidden { display: none; opacity: 0; }
+        .visible { display: block; opacity: 1; animation: fadeIn 1.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="petals-container"></div>
+
+    <div class="card" id="mainCard">
+        <div id="screen1">
+            <h1>🌹 Una sorpresa para ti</h1>
+            <p>Para la mujer mas inteligente y fuerte que conozco...</p>
+            <button class="btn" onclick="start()">Toca para abrir</button>
+        </div>
+
+        <div id="screen2" class="hidden">
+            <h1>🌹</h1>
+            <p style="font-style: italic; line-height: 1.8; color: #444;">
+                <!-- PEGA TU POEMA AQUÍ -->
+                Cuya fuerza no proviente de músculos, sino del corazon, corazon
+                tan grande y llenno de amor. Con esto dicho te doy mi felicitación por 
+                este día de las madres con todo mi amor.<br>
+            </p>
+            <p><strong>Con todo mi cariño, hoy y siempre.</strong></p>
+        </div>
+    </div>
+
+    <!-- Música de fondo (puedes cambiar el link por otro de YouTube o un MP3 directo) -->
+    <audio id="bgMusic" loop>
+        <source src="https://soundhelix.com" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Crear pétalos
+        function createPetal() {
+            const container = document.getElementById('petals-container');
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = petal.style.width;
+            petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+            container.appendChild(petal);
+            setTimeout(() => petal.remove(), 5000);
+        }
+        setInterval(createPetal, 300);
+
+        function start() {
+            // Reproducir música (los navegadores exigen que el usuario haga clic primero)
+            document.getElementById('bgMusic').play();
+            // Cambiar pantallas
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
+            document.getElementById('screen2').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
